@@ -11,29 +11,41 @@
   <body ng-controller='MovieSearchController'>
 
     <div class="container">
-      <form class="col-xs-6 col-xs-offset-3">
+      <form class="col-xs-6 col-xs-offset-3" ng-submit='searchThis()'>
       <h1 class=''>Angular OMDb API Search</h1>
       <div class='row'>
         <div class="text-center col-xs-6 col-xs-offset-3">
             <label for='search'>Enter a movie by title.</label>
-            <input type="text" autofocus name='search' placeholder="movie title e.g 'Braveheart'" class="form-control" ng-model="titleSearch" onclick="select()">
+            <input type="text" autofocus name='titleSearch' placeholder="movie title e.g 'Braveheart'" class="form-control" ng-model="titleSearch">
             <br>
-            <button type="submit"class="btn btn-primary" >Search! <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
+            <button type="submit" class="btn btn-primary" >Search! <i class="fa fa-arrow-right" aria-hidden="true"></i></button>
           </form>
         </div>
       </div>
     </div>
 
-    <div ng-if="details.Response==='False'">
+<!-- SHOW MESSAGE WHEN MOVIE CANNOT BE FOUND -->
+    <!-- <div ng-if="details.Response==='False'">
       No titles found matching {{titleSearch}}.
-    </div>
+    </div> -->
 
-      <div ng-show="#" ng-cloak="#">
-        <a href='partials/show'><img ng-src="{{ details.Poster }}" class="col-md-4">
-      </div></a>
+      <!-- <div ng-repeat='view in details' ng-cloak="#">
+          <h3>{{ view.Title }}</h3>
+          <p>{{ view.Year }}</p>
+      </div> -->
 
+
+      <div class="container">
+        <!-- <div class="row"> -->
+          <div class="col-xs-6 cardPadding" ng-repeat='view in details'>
+            <div class="card card-block cardSpecs text-xs-center" style="width: 100%;">
+              <h3 class="card-title">{{ view.Title }}</h3>
+              <p class="card-text">{{ view.Year }}</p>
+          </div>
+        <!-- </div> -->
       </div>
     </div>
+
 
 
 

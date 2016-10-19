@@ -1,20 +1,27 @@
-var app = angular.module("MovieApp", []);
+var app = angular.module("MovieApp", ['ngAnimate']);
+
 
 app.controller('MovieSearchController', function($scope, $http){
-  $scope.$watch('titleSearch', function() {
-    fetch();
-  });
-
-  $scope.titleSearch = '';
-
-  function fetch() {
-  $http.get("https://www.omdbapi.com/?t="+ $scope.titleSearch + "&tomatoes=true&r=json&plot=full")
-  .then(function successCallback(response) {
-    console.log($scope.titleSearch);
-      console.log(response.data);
-      $scope.details = response.data;
-  }, function errorCallback(response) {
-        console.log(response);
-    });
+    $scope.details = {};
+$scope.searchThis = function () {
+  $http.jsonp("https://www.omdbapi.com", {
+    params: {
+      s: $scope.titleSearch,
+      r: 'json',
+      callback: 'JSON_CALLBACK'
+    }
+  })
+  .success(function (response) {
+      $scope.details = response.Search;
+      $scope.titleSearch = '';
+    })
+    .error(function (data){
+      console.log(error);
+    })
+    .finally(function(){
+    })
   }
 })
+
+// "&tomatoes=true&r=json&plot=full"
+/* <a href='partials/show'><img ng-src="{{ view.Poster }}" class="col-md-4"></a> */

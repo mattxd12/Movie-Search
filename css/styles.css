@@ -1,0 +1,16 @@
+.cardSpecs {
+  border: black 2px solid;
+  min-height: 150px;
+  max-height: 150px;
+}
+
+.cardPadding {
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
