@@ -1,7 +1,8 @@
 .cardSpecs {
-  border: black 2px solid;
+  border: black 1px solid;
   min-height: 150px;
   max-height: 150px;
+  padding: 10px;
 }
 
 .cardPadding {
@@ -13,4 +14,13 @@
   display: flex;
   justify-content: center;
   padding-bottom: 10px;
+}
+
+.blue {
+  color: rgb(19, 8, 91);
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
 }

@@ -1,27 +1,49 @@
-var app = angular.module("MovieApp", ['ngAnimate']);
+angular.module("MovieApp")
 
-
-app.controller('MovieSearchController', function($scope, $http){
+.controller('MovieSearchController', function($scope, $http, $location){
     $scope.details = {};
-$scope.searchThis = function () {
-  $http.jsonp("https://www.omdbapi.com", {
-    params: {
-      s: $scope.titleSearch,
-      r: 'json',
-      callback: 'JSON_CALLBACK'
+    $scope.searchThis = function () {
+      $location.path(`/searchResults/${$scope.titleSearch}`)
+      $location.path('/searchResults/' + {$scope.titleSearch})
     }
   })
-  .success(function (response) {
-      $scope.details = response.Search;
-      $scope.titleSearch = '';
-    })
-    .error(function (data){
-      console.log(error);
-    })
-    .finally(function(){
-    })
-  }
+
+.controller('searchResults', function($scope, $routeParams, $http){
+  $http.get(`https://www.omdbapi.com/?s=${$routeParams.title}`)
+  .then(function (response) {
+    $scope.details = response.data.Search;
+    $scope.titleSearch = '';
+  })
+  .catch( function (err) {
+    console.log('Error:'+err)
+  })
 })
 
-// "&tomatoes=true&r=json&plot=full"
-/* <a href='partials/show'><img ng-src="{{ view.Poster }}" class="col-md-4"></a> */
+.controller('ShowCtrl', function($scope, $routeParams, $http){
+  $http.get(`https://www.omdbapi.com/?i=${$routeParams.imdbID}`)
+  .then(function (response) {
+      let resda = response.data;
+      $scope.details = {};
+      console.log(resda);
+      $scope.details = resda.Search;
+      $scope.Title = resda.Title;
+      $scope.Year = resda.Year;
+      $scope.Poster = resda.Poster;
+      $scope.Actors = resda.Actors;
+      $scope.Awards = resda.Awards;
+      $scope.Director = resda.Director;
+      $scope.Genre = resda.Genre;
+      $scope.Metascore = resda.Metascore;
+      $scope.Plot = resda.Plot;
+      $scope.Rated = resda.Rated;
+      $scope.Runtime = resda.Runtime;
+      $scope.Writer = resda.Writer;
+      $scope.imdbRating = resda.imdbRating;
+      $scope.imdbVotes = resda.imdbVotes;
+      $scope.titleSearch = '';
+    })
+    .catch( function (err) {
+      console.log(err);
+    })
+
+  })
